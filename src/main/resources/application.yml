@@ -1,0 +1,30 @@
+jwt:
+  secret: '[a-zA-Z0-9._]^+$Guidelines89797987forAlphabeticalAndOtherSymbol$'
+
+# JDBC properties
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/prj321x_asm03
+    username: van
+    password: SQLWorkbench
+  jpa:
+    hibernate:
+      ddl-auto: update
+  mail:
+    host: smtp.gmail.com
+    username: conglvfx20485@funix.edu.vn
+    password: chat123@cohost.ai
+    port: 587
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+
+# Show message when query error
+logging:
+  level:
+    org:
+      springframework:
+        security: DEBUG
