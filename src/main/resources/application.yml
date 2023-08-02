@@ -13,7 +13,7 @@ spring:
   mail:
     host: smtp.gmail.com
     username: conglvfx20485@funix.edu.vn
-    password: chat123@cohost.ai
+    password: FuNi20485
     port: 587
     properties:
       mail:
