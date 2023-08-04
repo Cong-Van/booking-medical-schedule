@@ -9,6 +9,7 @@ import com.funix.prj_321x.asm03.exception.ScheduleNotFoundException;
 import com.funix.prj_321x.asm03.repository.HealthResultRepository;
 import com.funix.prj_321x.asm03.repository.MedicalScheduleRepository;
 import com.funix.prj_321x.asm03.service.DoctorService;
+import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
@@ -31,6 +32,7 @@ public class DoctorRestController {
     }
 
     @GetMapping("/schedules")
+    @Operation(summary = "Show list of scheduling medical")
     public List<MedicalSchedule> scheduleList() {
         String email = SecurityContextHolder.getContext().getAuthentication().getName();
         return doctorService.getScheduleList(email);
@@ -38,6 +40,7 @@ public class DoctorRestController {
 
     // Nhận lịch khám
     @PutMapping("/schedules/{scheduleId}")
+    @Operation(summary = "Confirm medical appointment")
     public MedicalSchedule confirmSchedule(@PathVariable("scheduleId") int scheduleId) throws ScheduleNotFoundException, ScheduleHasCancelException, NotInChargeException {
         String email = SecurityContextHolder.getContext().getAuthentication().getName();
         return doctorService.confirmSchedule(email, scheduleId);
@@ -45,6 +48,7 @@ public class DoctorRestController {
 
     // Hủy lịch khám
     @DeleteMapping("/schedules/{scheduleId}")
+    @Operation(summary = "Cancel medical appointment")
     public MedicalSchedule cancelSchedule(@PathVariable("scheduleId") int scheduleId,
                                           @RequestParam("reason") String reason) throws ScheduleNotFoundException, NotInChargeException {
         String email = SecurityContextHolder.getContext().getAuthentication().getName();
@@ -53,6 +57,7 @@ public class DoctorRestController {
 
     // Tạo kết quả khám sau buổi khám
     @PostMapping("/results")
+    @Operation(summary = "Create result after medical examination")
     public HealthResult createResult(@RequestParam("scheduleId") int scheduleId,
                                      @RequestParam("pathology") String pathology,
                                      @RequestParam("description") String description) throws ScheduleNotFoundException, ScheduleHasCancelException, NotInChargeException, ResultExistException {
@@ -62,6 +67,7 @@ public class DoctorRestController {
 
     // Cập nhật lại kết quả
     @PutMapping("/results/{resultId}")
+    @Operation(summary = "Update result after medical examination")
     public HealthResult updateResult(@PathVariable("resultId") int resultId,
                                      @RequestParam("pathology") String pathology,
                                      @RequestParam("description") String description) throws NotInChargeException {
@@ -71,6 +77,7 @@ public class DoctorRestController {
 
     // Danh sách đã thăm khám
     @GetMapping("/results")
+    @Operation(summary = "Show list of medical examination results")
     public List<HealthResult> resultList() {
         String email = SecurityContextHolder.getContext().getAuthentication().getName();
         return doctorService.getResultList(email);

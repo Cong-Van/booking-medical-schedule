@@ -7,6 +7,7 @@ import com.funix.prj_321x.asm03.exception.PasswordMismatchException;
 import com.funix.prj_321x.asm03.security.JwtTokenProvider;
 import com.funix.prj_321x.asm03.security.UserPrincipal;
 import com.funix.prj_321x.asm03.service.UserService;
+import io.swagger.v3.oas.annotations.Operation;
 import jakarta.mail.MessagingException;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpHeaders;
@@ -63,6 +64,7 @@ public class UserRestController {
     }
 
     @PostMapping("/reset-password")
+    @Operation(summary = "Request reset password")
     public String resetPassword(@RequestParam("email") String email) throws EmailExistException, MessagingException, UnsupportedEncodingException {
         String token = userService.resetPassword(email);
         String resetPasswordUrl = getCurrentUrl() + "/update?token=" + token;
@@ -70,6 +72,7 @@ public class UserRestController {
     }
 
     @PostMapping("/reset-password/update")
+    @Operation(summary = "Confirm and change password")
     public String changePassword(@RequestParam("token") String token,
                                  @RequestBody UserDTO userDTO) throws PasswordMismatchException {
 
@@ -82,46 +85,54 @@ public class UserRestController {
     }
 
     @GetMapping("/info")
+    @Operation(summary = "Show individual information")
     public User showInformation() {
         String email = SecurityContextHolder.getContext().getAuthentication().getName();
         return userService.getUserByEmail(email);
     }
 
     @GetMapping("/results")
+    @Operation(summary = "Show list of medical examination results")
     public List<HealthResult> resultList() {
         String email = SecurityContextHolder.getContext().getAuthentication().getName();
         return userService.getResultList(email);
     }
 
     @GetMapping("/specializations/top")
+    @Operation(summary = "Show featured specializations")
     public List<Specialization> topSpecializations() {
         return userService.getTopSpecializations();
     }
 
     @GetMapping("/clinics/top")
+    @Operation(summary = "Show featured clinics")
     public List<Clinic> topClinics() {
         return userService.getTopClinics();
     }
 
     // Tìm kiếm chung (tìm kiếm bệnh viện)
     @GetMapping("/clinics/find")
+    @Operation(summary = "Find clinics")
     public List<Clinic> findClinics(@RequestParam("keyword") String keyword) {
         return userService.getClinicByKeyword(keyword);
     }
 
     // Tìm kiếm chung (tìm kiếm bác sĩ)
     @GetMapping("/doctors/find")
+    @Operation(summary = "Find doctors")
     public List<Doctor> findDoctors(@RequestParam("keyword") String keyword) {
         return userService.getDoctorByKeyword(keyword);
     }
 
     // Tìm kiếm bác sĩ theo chuyên khoa
     @GetMapping("/doctors/specialization")
+    @Operation(summary = "Find doctors by specialization")
     public List<Doctor> findDoctorBySpecialization(@RequestParam("keyword") String keyword) {
         return userService.getDoctorBySpecialization(keyword);
     }
 
     @PostMapping("/schedules")
+    @Operation(summary = "Booking a medical schedule")
     public MedicalSchedule bookSchedule(@RequestParam("doctorId") int doctorId,
                                         @RequestParam("name") String name,
                                         @RequestParam("gender") String gender,

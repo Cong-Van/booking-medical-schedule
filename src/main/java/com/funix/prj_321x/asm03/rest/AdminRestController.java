@@ -7,6 +7,7 @@ import com.funix.prj_321x.asm03.entity.MedicalSchedule;
 import com.funix.prj_321x.asm03.entity.User;
 import com.funix.prj_321x.asm03.exception.*;
 import com.funix.prj_321x.asm03.service.AdminService;
+import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -26,6 +27,7 @@ public class AdminRestController {
     }
 
     @PostMapping("/add-doctor-account")
+    @Operation(summary = "Create doctor account")
     public User addDoctorAccount(@RequestBody UserDTO userDTO) throws PasswordMismatchException, EmailExistException {
         if (!userDTO.getPassword().equals(userDTO.getConfirmPass())) {
             throw new PasswordMismatchException(PASSWORD_MISMATCH);
@@ -37,6 +39,7 @@ public class AdminRestController {
 
     // Điều chuyển bác sĩ vào cơ sở y tế
     @PostMapping("/doctors")
+    @Operation(summary = "Transfer doctor to medical clinic")
     public Doctor transferDoctor(@RequestParam("userId") int userId,
                                  @RequestParam("clinicId") int clinicId,
                                  @RequestParam("specializationId") int specializationId,
@@ -46,6 +49,7 @@ public class AdminRestController {
 
     // Cập nhật thông tin điều chuyển công tác cho bác sĩ
     @PutMapping("/doctors/{doctorId}")
+    @Operation(summary = "Update transfer doctor to medical clinic")
     public Doctor updateDoctor(@PathVariable("doctorId") int doctorId,
                                @RequestParam("clinicId") int clinicId,
                                @RequestParam("specializationId") int specializationId,
@@ -54,6 +58,7 @@ public class AdminRestController {
     }
 
     @PutMapping("/lock-account/{email}")
+    @Operation(summary = "Lock account")
     public ResponseEntity<HttpResponse> lockAccount(@PathVariable("email") String email,
                                                     @RequestParam String reason) throws EmailNotFoundException {
         String message = adminService.lockAccount(email, reason);
@@ -61,6 +66,7 @@ public class AdminRestController {
     }
 
     @PutMapping("unlock-account/{email}")
+    @Operation(summary = "Unlock account")
     public ResponseEntity<HttpResponse> unlockAccount(@PathVariable("email") String email) throws EmailNotFoundException {
         String message = adminService.unlockAccount(email);
         return new ResponseEntity<>(new HttpResponse(OK.value(), OK, OK.getReasonPhrase(), message), OK);
@@ -68,18 +74,21 @@ public class AdminRestController {
 
     // Danh sách lịch khám của bệnh nhân
     @GetMapping("/schedules/user")
+    @Operation(summary = "Show list of scheduling medical of patient")
     public List<MedicalSchedule> scheduleListOfUser(@RequestParam("userId") int userId) {
         return adminService.getScheduleListOfUser(userId);
     }
 
     // Danh sách lịch khám của bác sĩ
     @GetMapping("/schedules/doctor")
+    @Operation(summary = "Show list of scheduling medical of doctor")
     public List<MedicalSchedule> scheduleListOfDoctor(@RequestParam("doctorId") int doctorId) {
         return adminService.getScheduleListOfDoctor(doctorId);
     }
 
     // Chi tiết thông tin buổi đặt lịch
     @GetMapping("/schedules/{scheduleId}")
+    @Operation(summary = "Detail of a scheduling medical")
     public MedicalSchedule scheduleDetail(@PathVariable("scheduleId") int scheduleId) {
         return adminService.getScheduleDetail(scheduleId);
     }

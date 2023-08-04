@@ -16,6 +16,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
+import static com.funix.prj_321x.asm03.constant.SecurityConstant.AUTH_WHITELIST;
 import static com.funix.prj_321x.asm03.constant.SecurityConstant.PUBLIC_URLS;
 
 @Configuration
@@ -52,6 +53,7 @@ public class SecurityConfig {
         http
                 .authorizeHttpRequests(configurer -> configurer
                         .requestMatchers(PUBLIC_URLS).permitAll()
+                        .requestMatchers(AUTH_WHITELIST).permitAll()
                         .requestMatchers(HttpMethod.GET, "/user/**").hasRole("USER")
                         .requestMatchers(HttpMethod.POST, "/user/**").hasRole("USER")
                         .requestMatchers(HttpMethod.GET, "/doctor/**").hasRole("DOCTOR")
