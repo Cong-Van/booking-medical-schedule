@@ -11,8 +11,9 @@ There for, creating a trust as well as peace of mind about the medical team as w
 
 Before you continue, ensure you meet the following requirements:
 You have installed JDK 17 or over.
-You are using an IDE (Eg: IntelliJ IDEA) and a DBMS (MySQL).
-
+You are using an IDE (Eg: IntelliJ IDEA) and a DBMS (mysql or postgresql). Currently, using postgresql.
+You can check API on a support tool like Postman.
+Or you can view API list on: https://booking-medical-schedule.onrender.com
 
 - Use
 
@@ -25,6 +26,9 @@ Receive JWT, use JWT to authenticate with APIs that require authentication.
 (Copy value of Jwt-Token and Paste to Authorization: "Bearer " + value). 
 Eg: Jwt-Token: 123456. Authorization: Bearer 123456.
 
+You can try admin function with the default account. 
+TK: admin@admin.com 
+MK: 123.
 
 - List of features - LoF
 
@@ -52,7 +56,7 @@ Booking medical schedules.
 - Technologies Used
 
 Spring Boot 3, Spring Security, JPA.
-
+Swagger, Docker and Render website to publish openAPI.
 
 - Acknowledgments
 
