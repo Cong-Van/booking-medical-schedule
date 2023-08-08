@@ -15,6 +15,7 @@ You are using an IDE (Eg: IntelliJ IDEA) and a DBMS (mysql or postgresql). Curre
 You can check API on a support tool like Postman.
 Or you can view API list on: https://booking-medical-schedule.onrender.com
 
+
 - Use
 
 There are 3 roles: 
@@ -28,7 +29,8 @@ Eg: Jwt-Token: 123456. Authorization: Bearer 123456.
 
 You can try admin function with the default account. 
 TK: admin@admin.com 
-MK: 123.
+MK: 123
+
 
 - List of features - LoF
 
@@ -53,10 +55,22 @@ View list of your medical examination results.
 Looking for doctor or medical clinic.
 Booking medical schedules.
 
+
 - Technologies Used
 
 Spring Boot 3, Spring Security, JPA.
 Swagger, Docker and Render website to publish openAPI.
+
+
+- Deploy on Render
+
+Add Dependencies Postgresql and Dependencies Spring doc OpenAPI.
+Create Postgres database on Render and modify connection params in application file. 
+Create Controller redirect to /swagger-ui.html. 
+Create Docker file and config.
+Create repository on GitHub (To connect).
+Create Web Service and deploy by Docker.
+
 
 - Acknowledgments
 
